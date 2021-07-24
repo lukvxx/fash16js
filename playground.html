@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+<input type="text" placeholder="Input" id="textbox" onkeyup="document.getElementById('output').innerHTML = fash16(this.value) + '<br>' + document.getElementById('output').innerHTML">
+<button onclick="document.getElementById('output').innerHTML = '';">Clear</button>
+
+<p id="output"></p>
+<script type="text/javascript" src="sha256.js"></script>
+
+<script>
+    function isNumeric(s) {
+        return !isNaN(s - parseFloat(s));
+    }
+
+    function fash16(text) {
+        let value = text.length;
+        for(let i = 0; i < text.length; i++) {
+            if(value <= text.charCodeAt(i)) {
+                value *= (text.charCodeAt(i));
+            } else {
+                value /= (text.charCodeAt(i));
+            }
+        }
+        value = value*10000000000000000;
+        value = value.toString(16);
+        result = value;
+        for(let g = 0; g < value.length; g++) {
+            if(isNumeric(value[g])) {
+                result = result + value[g];
+            } else {
+                result = value[g] + result;
+            }
+        }
+        //result = result*10000000000000000000;
+        //result = result.toString(16);
+        result = result.substring(0,16);
+        return result;
+    }
+</script>
+
+</body>
+</html>
